@@ -24,6 +24,8 @@ const Form = (props) => {
 
     // Изменить массив data
     const editData = (name, value) => {
+        setDataValide(name, value);
+
         let newObj = {...data};
         newObj[name] = value;
 
@@ -35,53 +37,57 @@ const Form = (props) => {
         setData(editData(name, value))
     };
 
-    // Проврека имени
-    const setValideName = (data) => {
-        let regName = /(^[A-Z]{1}[a-z]{1,14} [A-Z]{1}[a-z]{1,14}$)|(^[А-Я]{1}[а-я]{1,14} [А-Я]{1}[а-я]{1,14}$)/;
-        
-        if (regName.test(data.name) === true) {
-            setNameValidate(true);
-            return true;
-        } else {
-            setNameValidate(false);
-            return false;
-        }
+    // Валидация данных
+    const setDataValide = (name, value) => {
+        switch(name) {
+            case 'name': 
+                let regName = /(^[A-Z]{1}[a-z]{1,14} [A-Z]{1}[a-z]{1,14}$)|(^[А-Я]{1}[а-я]{1,14} [А-Я]{1}[а-я]{1,14}$)/;
+
+                if (regName.test(value) === false && value.length !== 0) {
+                    setNameValidate(false);
+                } else setNameValidate(true);
+            break;
+
+            case 'email': 
+                let regMail = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+
+                if (regMail.test(value) === false && value.length !== 0) {
+                    setEmailValidate(false);
+                } else setEmailValidate(true);
+            break;
+
+            case 'phone':
+                let regPhone =  /(^(?!\+.*\(.*\).*\-\-.*$)(?!\+.*\(.*\).*\-$)(\+[0-9]{1,3}\([0-9]{1,3}\)[0-9]{1}([-0-9]{0,8})?([0-9]{0,1})?)$)|(^[+0-9]{1}([0-9]{0,11})?$)/;
+
+                if (regPhone.test(value) === false && value.length !== 0) {
+                    setPhoneValidate(false);
+                } else setPhoneValidate(true);
+            break;
+
+            default: return;
+        };
     };
-
-    // Проверка на email
-    const setValideEmal = (data) => {
-        let regMail = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-
-        if (regMail.test(data.email) === true) {
-            setEmailValidate(true);
-            return true;
-        } else {
-            setEmailValidate(false);
-            return false;
-        }
-    };
-
-    // Проврка на телефон
-    const setValidePgone = (data) => {
-        let regPhone =  /(^(?!\+.*\(.*\).*\-\-.*$)(?!\+.*\(.*\).*\-$)(\+[0-9]{1,3}\([0-9]{1,3}\)[0-9]{1}([-0-9]{0,8})?([0-9]{0,1})?)$)|(^[+0-9]{1}([0-9]{0,11})?$)/;
-        
-        if (regPhone.test(data.phone) === true) {
-            setPhoneValidate(true);
-            return true;
-        } else {
-            setPhoneValidate(false);
-            return false;
-        }
-    }
 
     // Отправить данные
     const setSendData = (e) => {
         e.preventDefault();
 
-        if (setValideName(data) === true && setValideEmal(data) === true && setValidePgone(data) === true) {
+        if (nameValidate === true && emailValidate === true && phoneValidate === true) {
             console.log(data);
-            alert('Данные успешно отправлены');
-        } else alert('Введите корректные данные')
+            alert("Данные успешно отправлены");
+        } else {
+            alert("Введены некорректные данные");
+        };
+
+        setData(
+            {
+                name: '',
+                email: '',
+                phone: '',
+                lang: '',
+                check: false
+            }
+        );
     };
 
     return (

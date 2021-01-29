@@ -1,14 +1,9 @@
 import React, { useState, useRef } from 'react';
 import './style.css';
 
-const DropList = (props) => {
+import { langMass } from '../../Data';
 
-    const langMass = [
-        {id: 0, label: 'Русский'},
-        {id: 1, label: 'Английский'},
-        {id: 2, label: 'Китайский'},
-        {id: 3, label: 'Испанский'},
-    ];
+const DropList = (props) => {
 
     // Состоние меню
     const [listVisible, setList] = useState(false);
