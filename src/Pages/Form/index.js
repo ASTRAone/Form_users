@@ -33,7 +33,7 @@ const Form = (props) => {
     // Изменение данных
     const setEditFormData = (name, value) => {
         setData(editData(name, value))
-    }
+    };
 
     // Проврека имени
     const setValideName = (data) => {

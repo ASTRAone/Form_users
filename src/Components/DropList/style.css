@@ -39,3 +39,7 @@
   text-decoration: none;
   display: block;
 }
+
+.input-active {
+  border: 2px solid #0880AE;
+}

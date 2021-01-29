@@ -11,14 +11,14 @@ const DropList = (props) => {
     ];
 
     // Состоние меню
-    const [listVisible, SetList] = useState(false);
+    const [listVisible, setList] = useState(false);
     // Определение клика вне меню
     const listClickRef = useRef(null);
 
     // Клик был вне меню?
     document.addEventListener('click', (e) => {
         if (listClickRef.current && !listClickRef.current.contains(e.target)) {
-            SetList(false);
+            setList(false);
         } else return;
     });
 
@@ -26,19 +26,19 @@ const DropList = (props) => {
     const setSendEndClose = (name, value) => {
         if (props.onClick) {
             props.onClick(name, value);
-            SetList(false);
+            setList(false);
         } else return;
     };
 
     return (
         <div className="drop-list" ref={listClickRef}> 
             <input 
-                className={props.classMenu}
+                className={`${props.classMenu} ${listVisible === true ? 'input-active' : ''}`}
                 placeholder={props.placeholder}
                 value={props.value} />
             <i 
                 className="fas fa-chevron-down drop"
-                onClick={() => SetList(!listVisible)}>
+                onClick={() => setList(!listVisible)}>
             </i>
             {listVisible === true ?
                 <div className="drop-list__content">
