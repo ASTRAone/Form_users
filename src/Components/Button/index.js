@@ -4,10 +4,10 @@ import './style.css';
 const Button = (props) => {
     return (
         <button 
-            className={props.className}
-            onClick={props.onClick}
-            disabled={props.disabled} >
-            {props.text}
+            className={props.className ? props.className : ''}
+            onClick={props.onClick ? props.onClick : null}
+            disabled={props.disabled ? props.disabled : ''} >
+                {props.text}
         </button>
     );
 };
